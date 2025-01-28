@@ -105,18 +105,16 @@ Tuning the spacing between lines and ensuring complete coverage is crucial for p
 
 8] Grading Rubric =
 
-    1. Controller Performance (60%):
+1. Controller Performance (60%):
         Average cross-track error < 0.2 units: 25%
         Maximum cross-track error < 0.5 units: 15%
         Smooth velocity profiles: 10%
         Clean cornering behavior: 10%
-
-    2. Pattern Quality (20%):
+2. Pattern Quality (20%):
         Even spacing between lines.
         Complete coverage of target area.
         Efficient use of space.
-
-    3. Documentation (20%):
+3. Documentation (20%):
         Clear explanation of tuning process.
         Well-presented performance metrics.
         Thoughtful analysis of results.
