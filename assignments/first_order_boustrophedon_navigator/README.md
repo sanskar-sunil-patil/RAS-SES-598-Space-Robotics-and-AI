@@ -238,4 +238,5 @@ https://drive.google.com/file/d/16o6awMWFUleRXtwSYkF_e-nMkSjntzFM/view?usp=drive
 
 
 16] Conclusion = 
+
 By carefully tuning the PD controller parameters and optimizing the boustrophedon pattern, we were able to significantly improve the turtlebot path-following accuracy, smoothness, and overall performance. The insights gained from this project can be applied to other robotic navigation tasks, providing a solid foundation for further experimentation and improvement.
