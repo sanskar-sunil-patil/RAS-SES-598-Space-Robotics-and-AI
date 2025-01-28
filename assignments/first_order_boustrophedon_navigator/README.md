@@ -14,10 +14,10 @@ This project implements a First-Order Boustrophedon Navigator (Lawnmower pattern
 
 2] Objective =
 
-    Optimize PD controller parameters for precise tracking of the boustrophedon pattern.
-    Minimize cross-track error while ensuring smooth and efficient motion.
-    Optimize the boustrophedon pattern parameters for coverage efficiency.
-    Analyze performance and document the results, including the methodology and challenges encountered during the tuning process.
+    1. Optimize PD controller parameters for precise tracking of the boustrophedon pattern.
+    2. Minimize cross-track error while ensuring smooth and efficient motion.
+    3. Optimize the boustrophedon pattern parameters for coverage efficiency.
+    4. Analyze performance and document the results, including the methodology and challenges encountered during the tuning process.
 
 
 
