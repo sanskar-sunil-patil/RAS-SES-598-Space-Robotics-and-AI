@@ -22,6 +22,7 @@ This project implements a First-Order Boustrophedon Navigator (Lawnmower pattern
 
 
 3] System Used =
+
     1. Ubuntu 22.04 + ROS2 Humble
 
     2. Required ROS2 Packages:
@@ -34,12 +35,15 @@ This project implements a First-Order Boustrophedon Navigator (Lawnmower pattern
 
 
 4] Installation and Setup =
+
 1. Fork the Course Repository =
+   
     Visit: https://github.com/DREAMS-lab/RAS-SES-598-Space-Robotics-and-AI
     Click "Fork" in the top-right corner and select your GitHub account as the destination.
 
 
 2. Clone Your Fork =
+   
 Clone your repository to your local machine:
 cd ~/
 git clone https://github.com/sanskar-sunil-patil/RAS-SES-598-Space-Robotics-and-AI.git
@@ -51,20 +55,24 @@ ln -s ~/RAS-SES-598-Space-Robotics-and-AI/assignments/first_order_boustrophedon_
 
 
 4. Build the Package =
+   
    cd ~/ros2_ws
 colcon build --packages-select first_order_boustrophedon_navigator
 source install/setup.bash
 
 
 5. Launch =
+   
    ros2 launch first_order_boustrophedon_navigator boustrophedon.launch.py
 
 
 6. Monitor Performance =
+   
    ros2 topic echo /cross_track_error
 
 
 7. Visualize Performance =
+   
    ros2 run rqt_plot rqt_plot
 
 
