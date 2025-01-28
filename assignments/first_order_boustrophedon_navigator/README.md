@@ -22,13 +22,13 @@ This project implements a First-Order Boustrophedon Navigator (Lawnmower pattern
 
 
 3] System Used =
-    Ubuntu 22.04 + ROS2 Humble
+    1. Ubuntu 22.04 + ROS2 Humble
 
-    Required ROS2 Packages:
+    2. Required ROS2 Packages:
         ros-$ROS_DISTRO-turtlesim
         ros-$ROS_DISTRO-rqt*
 
-    Python Dependencies:
+    3. Python Dependencies:
         numpy
         matplotlib
 
@@ -105,18 +105,18 @@ Tuning the spacing between lines and ensuring complete coverage is crucial for p
 
 8] Grading Rubric =
 
-    Controller Performance (60%):
+    1. Controller Performance (60%):
         Average cross-track error < 0.2 units: 25%
         Maximum cross-track error < 0.5 units: 15%
         Smooth velocity profiles: 10%
         Clean cornering behavior: 10%
 
-    Pattern Quality (20%):
+    2. Pattern Quality (20%):
         Even spacing between lines.
         Complete coverage of target area.
         Efficient use of space.
 
-    Documentation (20%):
+    3. Documentation (20%):
         Clear explanation of tuning process.
         Well-presented performance metrics.
         Thoughtful analysis of results.
@@ -227,10 +227,9 @@ https://drive.google.com/file/d/16o6awMWFUleRXtwSYkF_e-nMkSjntzFM/view?usp=drive
 
 15] Future Considerations =
 
-    Additional testing in varied environments could help refine the controller further, especially in handling obstacles or more complex terrains.
-    Experimenting with a slightly higher Kd_angular might improve the robot's behavior in more complex turns without compromising the overall responsiveness of the system.
+    1. Additional testing in varied environments could help refine the controller further, especially in handling obstacles or more complex terrains.
+    2. Experimenting with a slightly higher Kd_angular might improve the robot's behavior in more complex turns without compromising the overall responsiveness of the system.
 
 
 16] Conclusion = 
-
 By carefully tuning the PD controller parameters and optimizing the boustrophedon pattern, we were able to significantly improve the turtlebot path-following accuracy, smoothness, and overall performance. The insights gained from this project can be applied to other robotic navigation tasks, providing a solid foundation for further experimentation and improvement.
