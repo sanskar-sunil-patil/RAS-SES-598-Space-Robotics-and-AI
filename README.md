@@ -1,5 +1,8 @@
 First-Order Boustrophedon Navigator (Lawnmower pattern) using ROS2
 
+![Screenshot_20250127_201814_Video Player](https://github.com/user-attachments/assets/7658e886-a3c9-4f3e-84b4-3422ed82c335)
+
+
 The First-Order Boustrophedon Navigator (Lawnmower pattern) is a motion planning algorithm used to cover an area such as a floor or a field by moving back and forth in a grid-like manner, much like the pattern of a lawnmower. In the context of robotics, it’s commonly used for tasks like exploration, mapping, or cleaning, where the robot needs to cover an entire area in an efficient, systematic way.
 
 The ROS2 (Robot Operating System 2) part is a framework for writing robot software, and it provides tools for creating robot behaviors like navigation, control, and sensor integration. It is used by developers to implement algorithms, control robot hardware, and connect different software components.
@@ -66,6 +69,11 @@ source install/setup.bash
 
 
 5] Controller Tuning =
+
+![Screenshot_20250127_201847_Video Player](https://github.com/user-attachments/assets/7b94d1d5-b55d-4c7e-97ca-a7105402863b)
+
+
+
 The PD controller is used to control the robot’s motion along the boustrophedon pattern. The following parameters are adjustable for fine-tuning the robot's performance =
 
 1. Kp_linear: Proportional gain for linear velocity = 3.0
@@ -183,6 +191,10 @@ By adjusting these parameters, you can control how aggressively and smoothly the
 
 12] Observation =
 
+![Screenshot_20250127_202143_Video Player](https://github.com/user-attachments/assets/18121c46-ef72-474a-98bd-ab42cd4182d0)
+
+
+
 1. Min Cross-Track Error (< 0.2 units) =
    Kp_linear = 3.0 and Kd_linear = 0.1 provided a strong, responsive correction to small deviations from the desired path. The proportional gain Kp_linear ensured that the robot corrected quickly when off course, while the derivative term Kd_linear dampened any oscillations, resulting in the average cross-track error being well below 0.2 units.
 
@@ -198,7 +210,13 @@ By adjusting these parameters, you can control how aggressively and smoothly the
 
     With spacing = 1.0, the robot covered the target area effectively, maintaining a balance between coverage efficiency and pattern completeness. The path was neither too close nor too far apart, ensuring no overlap while covering the area uniformly.
 
-Challenges and Solutions =
+
+13] Video =
+
+
+
+
+14] Challenges and Solutions =
 
     1. Challenge = Overshoot and oscillations during turns due to high Kp_angular.
         Solution = By adjusting the Kp_angular to 12.0 and leaving Kd_angular at 0.0, the robot achieved fast, efficient turns without oscillating or overshooting.
@@ -206,12 +224,12 @@ Challenges and Solutions =
     2. Challenge = Maintaining smooth motion while ensuring fast corrections.
         Solution = The combination of Kp_linear at 3.0 and Kd_linear at 0.1 resulted in a responsive, but controlled movement that reduced excessive motion while ensuring the robot followed the pattern accurately.
 
-13] Future Considerations =
+15] Future Considerations =
 
     Additional testing in varied environments could help refine the controller further, especially in handling obstacles or more complex terrains.
     Experimenting with a slightly higher Kd_angular might improve the robot's behavior in more complex turns without compromising the overall responsiveness of the system.
 
 
-14] Conclusion = 
+16] Conclusion = 
 
 By carefully tuning the PD controller parameters and optimizing the boustrophedon pattern, we were able to significantly improve the turtlebot path-following accuracy, smoothness, and overall performance. The insights gained from this project can be applied to other robotic navigation tasks, providing a solid foundation for further experimentation and improvement.
