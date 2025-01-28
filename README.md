@@ -198,12 +198,13 @@ By adjusting these parameters, you can control how aggressively and smoothly the
 
     With spacing = 1.0, the robot covered the target area effectively, maintaining a balance between coverage efficiency and pattern completeness. The path was neither too close nor too far apart, ensuring no overlap while covering the area uniformly.
 
-Challenges and Solutions:
+Challenges and Solutions =
 
-    Challenge: Overshoot and oscillations during turns due to high Kp_angular.
-        Solution: By adjusting the Kp_angular to 12.0 and leaving Kd_angular at 0.0, the robot achieved fast, efficient turns without oscillating or overshooting.
-    Challenge: Maintaining smooth motion while ensuring fast corrections.
-        Solution: The combination of Kp_linear at 3.0 and Kd_linear at 0.1 resulted in a responsive, but controlled movement that reduced excessive motion while ensuring the robot followed the pattern accurately.
+    1. Challenge = Overshoot and oscillations during turns due to high Kp_angular.
+        Solution = By adjusting the Kp_angular to 12.0 and leaving Kd_angular at 0.0, the robot achieved fast, efficient turns without oscillating or overshooting.
+        
+    2. Challenge = Maintaining smooth motion while ensuring fast corrections.
+        Solution = The combination of Kp_linear at 3.0 and Kd_linear at 0.1 resulted in a responsive, but controlled movement that reduced excessive motion while ensuring the robot followed the pattern accurately.
 
 13] Future Considerations =
 
