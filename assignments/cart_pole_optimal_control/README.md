@@ -13,9 +13,11 @@ Stabilize the system under earthquake-like disturbances.
 Ensure that control effort remains efficient.
 
 
+
 2. Objectives =
    
 The goal of this project is to analyze and tune an LQR controller for a cart-pole system subject to earthquake-like disturbances. The primary objective is to stabilize the pole in an upright position while keeping the cart within its physical constraints (±2.5 meters), even under dynamic external disturbances that simulate seismic forces.
+
 
 
 3. System Used =
@@ -38,6 +40,7 @@ Gazebo simulation for cart-pole dynamics.
 RViz for visualization and monitoring.
 
 
+
 4. Installation and Setup =
    
 Fork and Clone the Repository:
@@ -53,6 +56,7 @@ Use colcon build to build the package and source the workspace.
 
 Launch Simulation:
 ros2 launch cart_pole_optimal_control cart_pole_rviz.launch.py will run the Gazebo simulation with RViz visualization.
+
 
 
 5. Controller Tuning =
@@ -75,6 +79,7 @@ Adjust Q: Increase or decrease the values based on the state you want to priorit
 Adjust R: Increase R if the control effort is too aggressive (leading to high forces) or too low if the system is not responsive enough.
 
 
+
 6. Performance Metrics =
    
 Stability Metrics:
@@ -92,12 +97,14 @@ Cart position must stay within ±2.5m.
 Control rate should stay at 50 Hz (set by the ROS2 control loop).
 
 
+
 7. Pattern Optimization =
    
 Earthquake Disturbance:
 Test system behavior under various disturbance frequencies (0.5-4.0 Hz) and amplitudes (base 15.0 N).
 Tunning for Optimal Coverage:
 Controller Tuning: Adjust Q and R values to optimize stability under specific disturbance frequencies. Fine-tune the disturbance response for quicker recovery times and minimal overshoot.
+
 
 
 8. Challenges and Solutions =
@@ -110,6 +117,7 @@ Solution: Modify Q to penalize large cart position deviations more heavily, ensu
 
 Challenge 3: Control efficiency
 Solution: Tune R to reduce excessive control effort while still maintaining system stability.
+
 
 
 9. Code =
@@ -290,12 +298,14 @@ if __name__ == '__main__':
 
 
 
+
 10. Video Link =
     
 `https://drive.google.com/file/d/1fPIVo5APeOgmDg_j3lTkmFs1DwlwR-Ut/view?usp=drivesdk
 
 
 ![Output](https://github.com/user-attachments/assets/23a5e4f8-da63-4e10-be8c-6a6d7e371f8f)
+
 
 
 
@@ -306,6 +316,9 @@ Implement more complex disturbance models (e.g., varying noise levels).
 Reinforcement Learning (Extra Credit):
 Implement a DQN (Deep Q-Network) to train an agent to stabilize the pendulum. Compare this approach to the LQR controller in terms of performance and efficiency.
 
-13. Conclusion =
+
+
+
+12. Conclusion =
     
 This project provides a comprehensive hands-on approach to analyzing and tuning the LQR controller in a cart-pole system under dynamic disturbances. By adjusting the Q and R matrices, students will gain insights into system behavior, stability, and control trade-offs. The challenge of handling external disturbances while ensuring control efficiency mimics real-world conditions, such as space missions, where robots must operate under unpredictable environmental conditions.
