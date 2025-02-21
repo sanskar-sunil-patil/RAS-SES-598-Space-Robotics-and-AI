@@ -14,10 +14,11 @@ Ensure that control effort remains efficient.
 
 
 2. Objectives =
+   
 The goal of this project is to analyze and tune an LQR controller for a cart-pole system subject to earthquake-like disturbances. The primary objective is to stabilize the pole in an upright position while keeping the cart within its physical constraints (±2.5 meters), even under dynamic external disturbances that simulate seismic forces.
 
 
-3. System Used =
+4. System Used =
 Physical Setup =
 Inverted pendulum mounted on a cart.
 
