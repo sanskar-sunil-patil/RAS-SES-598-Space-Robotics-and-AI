@@ -1,267 +1,293 @@
-# Cart-Pole Optimal Control Assignment
+Cart-Pole Optimal Control
 
-[Watch the demo video](https://drive.google.com/file/d/1UEo88tqG-vV_pkRSoBF_-FWAlsZOLoIb/view?usp=sharing)
-![image](https://github.com/user-attachments/assets/c8591475-3676-4cdf-8b4a-6539e5a2325f)
+![Output](https://github.com/user-attachments/assets/23a5e4f8-da63-4e10-be8c-6a6d7e371f8f)
 
-## Overview
-This assignment challenges students to tune and analyze an LQR controller for a cart-pole system subject to earthquake disturbances. The goal is to maintain the pole's stability while keeping the cart within its physical constraints under external perturbations. The earthquake force generator in this assignment introduces students to simulating and controlling systems under seismic disturbances, which connects to the Virtual Shake Robot covered later in the course. The skills developed here in handling dynamic disturbances and maintaining system stability will be useful for optimal control of space robots, such as Lunar landers or orbital debris removal robots.
 
-## System Description
-The assignment is based on the problem formalism here: https://underactuated.mit.edu/acrobot.html#cart_pole
-### Physical Setup
-- Inverted pendulum mounted on a cart
-- Cart traversal range: ±2.5m (total range: 5m)
-- Pole length: 1m
-- Cart mass: 1.0 kg
-- Pole mass: 1.0 kg
+1. Project Overview =
+   
+This project involves optimizing and analyzing an LQR (Linear Quadratic Regulator) controller for a cart-pole system under earthquake-like disturbances. The goal is to maintain the pole in the upright position while keeping the cart within its physical limits of ±2.5m, despite external disturbances from the earthquake force generator. This project allow to gain hands-on experience with control systems and disturbances, skills that are crucial for the navigation of space robots, such as lunar landers or orbital debris removal robots.
 
-### Disturbance Generator
-The system includes an earthquake force generator that introduces external disturbances:
-- Generates continuous, earthquake-like forces using superposition of sine waves
-- Base amplitude: 15.0N (default setting)
-- Frequency range: 0.5-4.0 Hz (default setting)
-- Random variations in amplitude and phase
-- Additional Gaussian noise
+The LQR controller will be tuned to achieve the following =
+Maintain the pendulum (pole) in an upright position.
+Prevent the cart from exceeding its physical boundaries (±2.5m).
+Stabilize the system under earthquake-like disturbances.
+Ensure that control effort remains efficient.
 
-## Assignment Objectives
 
-### Core Requirements
-1. Analyze and tune the provided LQR controller to:
-   - Maintain the pendulum in an upright position
-   - Keep the cart within its ±2.5m physical limits
-   - Achieve stable operation under earthquake disturbances
-2. Document your LQR tuning approach:
-   - Analysis of the existing Q and R matrices
-   - Justification for any tuning changes made
-   - Analysis of performance trade-offs
-   - Experimental results and observations
-3. Analyze system performance:
-   - Duration of stable operation
-   - Maximum cart displacement
-   - Pendulum angle deviation
-   - Control effort analysis
+2. Objectives =
+The goal of this project is to analyze and tune an LQR controller for a cart-pole system subject to earthquake-like disturbances. The primary objective is to stabilize the pole in an upright position while keeping the cart within its physical constraints (±2.5 meters), even under dynamic external disturbances that simulate seismic forces.
 
-### Learning Outcomes
-- Understanding of LQR control parameters and their effects
-- Experience with competing control objectives
-- Analysis of system behavior under disturbances
-- Practical experience with ROS2 and Gazebo simulation
 
-### Extra Credit Options
-Students can implement reinforcement learning for extra credit (up to 30 points):
+3. System Used =
+Physical Setup =
+Inverted pendulum mounted on a cart.
+Cart mass = 1.0 kg.
+Pole mass = 1.0 kg.
+Pole length = 1 meter.
+Cart traversal range: ±2.5m (5m total).
+Disturbance Generator:
 
-1. Reinforcement Learning Implementation:
-   - Implement a basic DQN (Deep Q-Network) controller
-   - Train the agent to stabilize the pendulum
-   - Compare performance with the LQR controller
-   - Document training process and results
-   - Create training progress visualizations
-   - Analyze and compare performance with LQR
+Generates earthquake-like forces using sine waves.
+Base amplitude: 15.0 N.
+Frequency range: 0.5-4.0 Hz.
+Additional Gaussian noise for realistic disturbances.
+ROS2 (Robot Operating System 2)=ROS2 Jazzy.
+Gazebo simulation for cart-pole dynamics.
+RViz for visualization and monitoring.
 
-## Implementation
 
-### Controller Description
-The package includes a complete LQR controller implementation (`lqr_controller.py`) with the following features:
-- State feedback control
-- Configurable Q and R matrices
-- Real-time force command generation
-- State estimation and processing
+4. Installation and Setup =
+Fork and Clone the Repository:
+ROS2 Setup =
+Install necessary ROS2 packages such as ros-$ROS_DISTRO-ros-gz-bridge, ros-$ROS_DISTRO-rviz2, and others related to simulation and control.
 
-Current default parameters:
-```python
-# State cost matrix Q (default values)
+Python Dependencies:
+Install necessary Python libraries: numpy, scipy, control.
+
+Repository Setup =
+Create symlink to ROS2 workspace and build the package.
+Use colcon build to build the package and source the workspace.
+
+Launch Simulation:
+ros2 launch cart_pole_optimal_control cart_pole_rviz.launch.py will run the Gazebo simulation with RViz visualization.
+
+
+5. Controller Tuning =
+LQR Controller Description:
+The LQR controller is defined in lqr_controller.py, with configurable Q and R matrices.
+Default Q Matrix =
 Q = np.diag([1.0, 1.0, 10.0, 10.0])  # [x, x_dot, theta, theta_dot]
 
-# Control cost R (default value)
+Default R Matrix =
 R = np.array([[0.1]])  # Control effort cost
-```
+Parameter Tuning:
 
-### Earthquake Disturbance
-The earthquake generator (`earthquake_force_generator.py`) provides realistic disturbances:
-- Configurable through ROS2 parameters
-- Default settings:
-  ```python
-  parameters=[{
-      'base_amplitude': 15.0,    # Strong force amplitude (N)
-      'frequency_range': [0.5, 4.0],  # Wide frequency range (Hz)
-      'update_rate': 50.0  # Update rate (Hz)
-  }]
-  ```
+The tuning process involves adjusting the Q matrix to penalize different states (cart position, velocity, pole angle, angular velocity) and adjusting the R matrix to control the control effort (force applied to the cart).
+Objective: Minimize the pole angle deviation while ensuring the cart remains within the limits and minimizing control effort.
+Tuning Steps:
 
-## Getting Started
+Start with default Q and R: Observe the system’s behavior.
+Adjust Q: Increase or decrease the values based on the state you want to prioritize (e.g., reduce the penalty on x if the cart position is less critical than stabilizing the pole).
+Adjust R: Increase R if the control effort is too aggressive (leading to high forces) or too low if the system is not responsive enough.
 
-### Prerequisites
-- ROS2 Humble or Jazzy
-- Gazebo Garden
-- Python 3.8+
-- Required Python packages: numpy, scipy
 
-#### Installation Commands
-```bash
-# Set ROS_DISTRO as per your configuration
-export ROS_DISTRO=humble
+6. Performance Metrics =
+Stability Metrics:
+Maximum pole angle deviation.
+RMS cart position error.
+Peak control force used.
+Recovery time after disturbances.
+Control Metrics:
 
-# Install ROS2 packages
-sudo apt update
-sudo apt install -y \
-    ros-$ROS_DISTRO-ros-gz-bridge \
-    ros-$ROS_DISTRO-ros-gz-sim \
-    ros-$ROS_DISTRO-ros-gz-interfaces \
-    ros-$ROS_DISTRO-robot-state-publisher \
-    ros-$ROS_DISTRO-rviz2
+The efficiency of the control effort.
+Trade-off between system stability and control input efficiency.
+System Constraints:
 
-# Install Python dependencies
-pip3 install numpy scipy control
-```
+Cart position must stay within ±2.5m.
+Control rate should stay at 50 Hz (set by the ROS2 control loop).
 
-### Repository Setup
 
-#### If you already have a fork of the course repository:
-```bash
-# Navigate to your local copy of the repository
-cd ~/RAS-SES-598-Space-Robotics-and-AI
+7. Pattern Optimization =
+Earthquake Disturbance:
+Test system behavior under various disturbance frequencies (0.5-4.0 Hz) and amplitudes (base 15.0 N).
+Tunning for Optimal Coverage:
+Controller Tuning: Adjust Q and R values to optimize stability under specific disturbance frequencies. Fine-tune the disturbance response for quicker recovery times and minimal overshoot.
 
-# Add the original repository as upstream (if not already done)
-git remote add upstream https://github.com/DREAMS-lab/RAS-SES-598-Space-Robotics-and-AI.git
 
-# Fetch the latest changes from upstream
-git fetch upstream
+8. Challenges and Solutions =
+Challenge 1: Handling Disturbances
+Solution: Carefully adjust Q and R matrices to balance stability with quick recovery. Ensure that control forces are sufficient to combat high-amplitude disturbances without overshooting.
 
-# Checkout your main branch
-git checkout main
+Challenge 2: Cart position limits
+Solution: Modify Q to penalize large cart position deviations more heavily, ensuring the cart stays within the physical boundaries.
 
-# Merge upstream changes
-git merge upstream/main
+Challenge 3: Control efficiency
+Solution: Tune R to reduce excessive control effort while still maintaining system stability.
+10. Video Link =
+`https://drive.google.com/file/d/1fPIVo5APeOgmDg_j3lTkmFs1DwlwR-Ut/view?usp=drivesdk
 
-# Push the updates to your fork
-git push origin main
-```
+9. Code =
 
-#### If you don't have a fork yet:
-1. Fork the course repository:
-   - Visit: https://github.com/DREAMS-lab/RAS-SES-598-Space-Robotics-and-AI
-   - Click "Fork" in the top-right corner
-   - Select your GitHub account as the destination
+#!/usr/bin/env python3
 
-2. Clone your fork:
-```bash
-cd ~/
-git clone https://github.com/YOUR_USERNAME/RAS-SES-598-Space-Robotics-and-AI.git
-```
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import Float64
+from sensor_msgs.msg import JointState
+import numpy as np
+from scipy import linalg
+import time
 
-### Create Symlink to ROS2 Workspace
-```bash
-# Create symlink in your ROS2 workspace
-cd ~/ros2_ws/src
-ln -s ~/RAS-SES-598-Space-Robotics-and-AI/assignments/cart_pole_optimal_control .
-```
+class CartPoleLQRController(Node):
+    def __init__(self):
+        super().__init__('cart_pole_lqr_controller')
+       
+        # System parameters
+        self.M = 1.0  # Mass of cart (kg)
+        self.m = 1.0  # Mass of pole (kg)
+        self.L = 1.0  # Length of pole (m)
+        self.g = 9.81  # Gravity (m/s^2)
+       
+        # State space matrices
+        self.A = np.array([
+            [0, 1, 0, 0],
+            [0, 0, (self.m * self.g) / self.M, 0],
+            [0, 0, 0, 1],
+            [0, 0, ((self.M + self.m) * self.g) / (self.M * self.L), 0]
+        ])
+       
+        self.B = np.array([
+            [0],
+            [1/self.M],
+            [0],
+            [-1/(self.M * self.L)]
+        ])
+       
+        # LQR cost matrices
+        self.Q = np.diag([1.0, 1.0, 50.0, 50.0])  # State cost
+        self.R = np.array([[0.01]])  # Control cost
+       
+        # Compute LQR gain matrix
+        self.K = self.compute_lqr_gain()
+        self.get_logger().info(f'LQR Gain Matrix: {self.K}')
+       
+        # Initialize state estimate
+        self.x = np.zeros((4, 1))
+        self.state_initialized = False
+        self.last_control = 0.0
+        self.control_count = 0
+       
+        # Tracking statistics
+        self.max_pole_angle_deviation = 0.0
+        self.cart_position_errors = []
+        self.peak_control_force = 0.0
+       
+        # Recovery time tracking
+        self.disturbance_detected = False
+        self.recovery_start_time = None
+        self.recovery_time = None
+        self.disturbance_threshold = 0.05  # Threshold for disturbance detection
+       
+        # Create publishers and subscribers
+        self.cart_cmd_pub = self.create_publisher(
+            Float64,
+            '/model/cart_pole/joint/cart_to_base/cmd_force',
+            10
+        )
+       
+        self.joint_state_sub = self.create_subscription(
+            JointState,
+            '/world/empty/model/cart_pole/joint_state',
+            self.joint_state_callback,
+            10
+        )
+       
+        # Control loop timer
+        self.timer = self.create_timer(0.01, self.control_loop)
+       
+        self.get_logger().info('Cart-Pole LQR Controller initialized')
+   
+    def compute_lqr_gain(self):
+        """Compute the LQR gain matrix K."""
+        P = linalg.solve_continuous_are(self.A, self.B, self.Q, self.R)
+        K = np.linalg.inv(self.R) @ self.B.T @ P
+        return K
+   
+    def joint_state_callback(self, msg):
+        """Update state estimate from joint states."""
+        try:
+            # Get indices for cart and pole joints
+            cart_idx = msg.name.index('cart_to_base')  # Cart position/velocity
+            pole_idx = msg.name.index('pole_joint')    # Pole angle/velocity
+           
+            # State vector: [x, ẋ, θ, θ̇]
+            self.x = np.array([
+                [msg.position[cart_idx]],     # Cart position (x)
+                [msg.velocity[cart_idx]],     # Cart velocity (ẋ)
+                [msg.position[pole_idx]],     # Pole angle (θ)
+                [msg.velocity[pole_idx]]      # Pole angular velocity (θ̇)
+            ])
+           
+            # Track max pole angle deviation
+            self.max_pole_angle_deviation = max(self.max_pole_angle_deviation, abs(self.x[2, 0]))
+           
+            # Track cart position errors
+            self.cart_position_errors.append(self.x[0, 0] ** 2)
+           
+            # Detect disturbances
+            if abs(self.x[2, 0]) > self.disturbance_threshold and not self.disturbance_detected:
+                self.disturbance_detected = True
+                self.recovery_start_time = time.time()
+                self.get_logger().info(f'Disturbance detected! Pole angle: {self.x[2, 0]:.3f} rad')
+           
+            # Check if system has recovered
+            if self.disturbance_detected and abs(self.x[2, 0]) < self.disturbance_threshold:
+                self.recovery_time = time.time() - self.recovery_start_time
+                self.disturbance_detected = False
+                self.get_logger().info(f'Recovery complete! Time taken: {self.recovery_time:.3f} sec')
 
-### Building and Running
-```bash
-# Build the package
-cd ~/ros2_ws
-colcon build --packages-select cart_pole_optimal_control --symlink-install
+            if not self.state_initialized:
+                self.get_logger().info(f'Initial state: cart_pos={msg.position[cart_idx]:.3f}, cart_vel={msg.velocity[cart_idx]:.3f}, pole_angle={msg.position[pole_idx]:.3f}, pole_vel={msg.velocity[pole_idx]:.3f}')
+                self.state_initialized = True
+               
+        except (ValueError, IndexError) as e:
+            self.get_logger().warn(f'Failed to process joint states: {e}, msg={msg.name}')
+   
+    def control_loop(self):
+        """Compute and apply LQR control."""
+        try:
+            if not self.state_initialized:
+                self.get_logger().warn('State not initialized yet')
+                return
 
-# Source the workspace
-source install/setup.bash
+            # Compute control input u = -Kx
+            u = -self.K @ self.x
+            force = float(u[0])
+           
+            # Track peak control force
+            self.peak_control_force = max(self.peak_control_force, abs(force))
+           
+            # Compute RMS cart position error
+            rms_cart_position_error = np.sqrt(np.mean(self.cart_position_errors)) if self.cart_position_errors else 0.0
+           
+            # Log control input and statistics periodically
+            if abs(force - self.last_control) > 0.1 or self.control_count % 100 == 0:
+                self.get_logger().info(f'State: {self.x.T}, Control force: {force:.3f}N')
+                self.get_logger().info(f'Max Pole Angle Deviation: {self.max_pole_angle_deviation:.3f} rad')
+                self.get_logger().info(f'RMS Cart Position Error: {rms_cart_position_error:.3f} m')
+                self.get_logger().info(f'Peak Control Force Used: {self.peak_control_force:.3f} N')
 
-# Launch the simulation with visualization
-ros2 launch cart_pole_optimal_control cart_pole_rviz.launch.py
-```
+                if self.recovery_time is not None:
+                    self.get_logger().info(f'Last Recovery Time: {self.recovery_time:.3f} sec')
+                    self.recovery_time = None  # Reset after logging
+           
+            # Publish control command
+            msg = Float64()
+            msg.data = force
+            self.cart_cmd_pub.publish(msg)
+           
+            self.last_control = force
+            self.control_count += 1
+           
+        except Exception as e:
+            self.get_logger().error(f'Control loop error: {e}')
 
-This will start:
-- Gazebo simulation (headless mode)
-- RViz visualization showing:
-  * Cart-pole system
-  * Force arrows (control and disturbance forces)
-  * TF frames for system state
-- LQR controller
-- Earthquake force generator
-- Force visualizer
+def main(args=None):
+    rclpy.init(args=args)
+    controller = CartPoleLQRController()
+    rclpy.spin(controller)
+    controller.destroy_node()
+    rclpy.shutdown()
 
-### Visualization Features
-The RViz view provides a side perspective of the cart-pole system with:
+if __name__ == '__main__':
+    main()
 
-#### Force Arrows
-Two types of forces are visualized:
-1. Control Forces (at cart level):
-   - Red arrows: Positive control force (right)
-   - Blue arrows: Negative control force (left)
+    
+9. Future Considerations =
+Advanced Disturbance Modeling:
+Implement more complex disturbance models (e.g., varying noise levels).
+Reinforcement Learning (Extra Credit):
+Implement a DQN (Deep Q-Network) to train an agent to stabilize the pendulum. Compare this approach to the LQR controller in terms of performance and efficiency.
 
-2. Earthquake Disturbances (above cart):
-   - Orange arrows: Positive disturbance (right)
-   - Purple arrows: Negative disturbance (left)
-
-Arrow lengths are proportional to force magnitudes.
-
-## Analysis Requirements
-
-### Performance Metrics
-Students should analyze:
-1. Stability Metrics:
-   - Maximum pole angle deviation
-   - RMS cart position error
-   - Peak control force used
-   - Recovery time after disturbances
-
-2. System Constraints:
-   - Cart position limit: ±2.5m
-   - Control rate: 50Hz
-   - Pole angle stability
-   - Control effort efficiency
-
-### Analysis Guidelines
-1. Baseline Performance:
-   - Document system behavior with default parameters
-   - Identify key performance bottlenecks
-   - Analyze disturbance effects
-
-2. Parameter Effects:
-   - Analyze how Q matrix weights affect different states
-   - Study R value's impact on control aggressiveness
-   - Document trade-offs between objectives
-
-3. Disturbance Response:
-   - Characterize system response to different disturbance frequencies
-   - Analyze recovery behavior
-   - Study control effort distribution
-
-## Evaluation Criteria
-### Core Assignment (100 points)
-1. Analysis Quality (40 points)
-   - Depth of parameter analysis
-   - Quality of performance metrics
-   - Understanding of system behavior
-
-2. Performance Results (30 points)
-   - Stability under disturbances
-   - Constraint satisfaction
-   - Control efficiency
-
-3. Documentation (30 points)
-   - Clear analysis presentation
-   - Quality of data and plots
-   - Thoroughness of discussion
-
-### Extra Credit (up to 30 points)
-- Reinforcement Learning Implementation (30 points)
-
-## Tips for Success
-1. Start with understanding the existing controller behavior
-2. Document baseline performance thoroughly
-3. Make systematic parameter adjustments
-4. Keep detailed records of all tests
-5. Focus on understanding trade-offs
-6. Use visualizations effectively
-
-## Submission Requirements
-1. Technical report including:
-   - Analysis of controller behavior
-   - Performance data and plots
-   - Discussion of findings
-2. Video demonstration of system performance
-3. Any additional analysis tools or visualizations created
-
-## License
-This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
-[![Creative Commons License](https://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/) 
+10. Conclusion =
+This project provides a comprehensive hands-on approach to analyzing and tuning the LQR controller in a cart-pole system under dynamic disturbances. By adjusting the Q and R matrices, students will gain insights into system behavior, stability, and control trade-offs. The challenge of handling external disturbances while ensuring control efficiency mimics real-world conditions, such as space missions, where robots must operate under unpredictable environmental conditions.
