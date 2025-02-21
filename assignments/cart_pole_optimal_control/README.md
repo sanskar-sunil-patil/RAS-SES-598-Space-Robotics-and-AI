@@ -2,6 +2,7 @@ Cart-Pole Optimal Control
 
 
 1. Project Overview =
+
    
 This project involves optimizing and analyzing an LQR (Linear Quadratic Regulator) controller for a cart-pole system under earthquake-like disturbances. The goal is to maintain the pole in the upright position while keeping the cart within its physical limits of ±2.5m, despite external disturbances from the earthquake force generator. This project allow to gain hands-on experience with control systems and disturbances, skills that are crucial for the navigation of space robots, such as lunar landers or orbital debris removal robots.
 
