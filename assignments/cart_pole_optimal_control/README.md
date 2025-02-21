@@ -1,7 +1,5 @@
 Cart-Pole Optimal Control
 
-![Output](https://github.com/user-attachments/assets/23a5e4f8-da63-4e10-be8c-6a6d7e371f8f)
-
 
 1. Project Overview =
    
@@ -21,12 +19,13 @@ The goal of this project is to analyze and tune an LQR controller for a cart-pol
 3. System Used =
 Physical Setup =
 Inverted pendulum mounted on a cart.
-Cart mass = 1.0 kg.
-Pole mass = 1.0 kg.
-Pole length = 1 meter.
-Cart traversal range: ±2.5m (5m total).
-Disturbance Generator:
 
+self.M = 1.0  # Mass of cart (kg)
+self.m = 1.0  # Mass of pole (kg)
+self.L = 1.0  # Length of pole (m)
+self.g = 9.81  # Gravity (m/s^2)
+
+Disturbance Generator:
 Generates earthquake-like forces using sine waves.
 Base amplitude: 15.0 N.
 Frequency range: 0.5-4.0 Hz.
@@ -103,8 +102,7 @@ Solution: Modify Q to penalize large cart position deviations more heavily, ensu
 
 Challenge 3: Control efficiency
 Solution: Tune R to reduce excessive control effort while still maintaining system stability.
-10. Video Link =
-`https://drive.google.com/file/d/1fPIVo5APeOgmDg_j3lTkmFs1DwlwR-Ut/view?usp=drivesdk
+
 
 9. Code =
 
@@ -282,12 +280,21 @@ def main(args=None):
 if __name__ == '__main__':
     main()
 
-    
-9. Future Considerations =
+
+
+10. Video Link =
+`https://drive.google.com/file/d/1fPIVo5APeOgmDg_j3lTkmFs1DwlwR-Ut/view?usp=drivesdk
+
+
+![Output](https://github.com/user-attachments/assets/23a5e4f8-da63-4e10-be8c-6a6d7e371f8f)
+
+
+
+11. Future Considerations =
 Advanced Disturbance Modeling:
 Implement more complex disturbance models (e.g., varying noise levels).
 Reinforcement Learning (Extra Credit):
 Implement a DQN (Deep Q-Network) to train an agent to stabilize the pendulum. Compare this approach to the LQR controller in terms of performance and efficiency.
 
-10. Conclusion =
+12. Conclusion =
 This project provides a comprehensive hands-on approach to analyzing and tuning the LQR controller in a cart-pole system under dynamic disturbances. By adjusting the Q and R matrices, students will gain insights into system behavior, stability, and control trade-offs. The challenge of handling external disturbances while ensuring control efficiency mimics real-world conditions, such as space missions, where robots must operate under unpredictable environmental conditions.
