@@ -26,9 +26,13 @@ Physical Setup =
 Inverted pendulum mounted on a cart.
 
 self.M = 1.0  # Mass of cart (kg)
+
 self.m = 1.0  # Mass of pole (kg)
+
 self.L = 1.0  # Length of pole (m)
+
 self.g = 9.81  # Gravity (m/s^2)
+
 
 Disturbance Generator:
 Generates earthquake-like forces using sine waves.
@@ -158,7 +162,7 @@ class CartPoleLQRController(Node):
         ])
        
         # LQR cost matrices
-        self.Q = np.diag([1.0, 1.0, 53.0, 53.0])  # State cost
+        self.Q = np.diag([1.0, 1.0, 50.0, 50.0])  # State cost
         self.R = np.array([[0.01]])  # Control cost
        
         # Compute LQR gain matrix
