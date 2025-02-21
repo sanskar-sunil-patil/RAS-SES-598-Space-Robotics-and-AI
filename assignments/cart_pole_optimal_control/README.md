@@ -36,30 +36,43 @@ self.g = 9.81  # Gravity (m/s^2)
 
 
 Disturbance Generator:
+
 Generates earthquake-like forces using sine waves.
+
 Base amplitude: 15.0 N.
+
 Frequency range: 0.5-4.0 Hz.
+
 Additional Gaussian noise for realistic disturbances.
+
 ROS2 (Robot Operating System 2)=ROS2 Jazzy.
-Gazebo simulation for cart-pole dynamics.
+
+Gazebo simulation for cart-pole dynamics
+.
 RViz for visualization and monitoring.
 
 
 
 4. Installation and Setup =
    
-Fork and Clone the Repository:
+Fork and Clone the Repository =
+
 ROS2 Setup =
+
 Install necessary ROS2 packages such as ros-$ROS_DISTRO-ros-gz-bridge, ros-$ROS_DISTRO-rviz2, and others related to simulation and control.
 
 Python Dependencies:
+
 Install necessary Python libraries: numpy, scipy, control.
 
 Repository Setup =
+
 Create symlink to ROS2 workspace and build the package.
+
 Use colcon build to build the package and source the workspace.
 
-Launch Simulation:
+Launch Simulation =
+
 ros2 launch cart_pole_optimal_control cart_pole_rviz.launch.py will run the Gazebo simulation with RViz visualization.
 
 
@@ -76,41 +89,64 @@ self.R = np.array([[0.01]])
 
 6. Performance Metrics =
    
-Stability Metrics:
+Stability Metrics =
+
 Maximum pole angle deviation.
+
 RMS cart position error.
+
 Peak control force used.
+
 Recovery time after disturbances.
+
+
 Control Metrics:
 
 The efficiency of the control effort.
+
 Trade-off between system stability and control input efficiency.
+
 System Constraints:
 
 Cart position must stay within ±2.5m.
+
 Control rate should stay at 50 Hz (set by the ROS2 control loop).
 
 
 
 7. Pattern Optimization =
    
-Earthquake Disturbance:
+Earthquake Disturbance =
+
 Test system behavior under various disturbance frequencies (0.5-4.0 Hz) and amplitudes (base 15.0 N).
-Tunning for Optimal Coverage:
-Controller Tuning: Adjust Q and R values to optimize stability under specific disturbance frequencies. Fine-tune the disturbance response for quicker recovery times and minimal overshoot.
+
+Tunning for Optimal Coverage =
+
+Controller Tuning: 
+
+Adjust Q and R values to optimize stability under specific disturbance frequencies. Fine-tune the disturbance response for quicker recovery times and minimal overshoot.
 
 
 
 8. Challenges and Solutions =
    
 Challenge 1: Handling Disturbances
-Solution: Carefully adjust Q and R matrices to balance stability with quick recovery. Ensure that control forces are sufficient to combat high-amplitude disturbances without overshooting.
+
+Solution:
+
+Carefully adjust Q and R matrices to balance stability with quick recovery. Ensure that control forces are sufficient to combat high-amplitude disturbances without overshooting.
 
 Challenge 2: Cart position limits
-Solution: Modify Q to penalize large cart position deviations more heavily, ensuring the cart stays within the physical boundaries.
+
+Solution: 
+
+Modify Q to penalize large cart position deviations more heavily, ensuring the cart stays within the physical boundaries.
 
 Challenge 3: Control efficiency
-Solution: Tune R to reduce excessive control effort while still maintaining system stability.
+
+Solution:
+
+Tune R to reduce excessive control effort while still maintaining system stability.
 
 
 
@@ -129,9 +165,12 @@ Solution: Tune R to reduce excessive control effort while still maintaining syst
 
 10. Future Considerations =
     
-Advanced Disturbance Modeling:
+Advanced Disturbance Modeling =
+
 Implement more complex disturbance models (e.g., varying noise levels).
-Reinforcement Learning (Extra Credit):
+
+Reinforcement Learning (Extra Credit) =
+
 Implement a DQN (Deep Q-Network) to train an agent to stabilize the pendulum. Compare this approach to the LQR controller in terms of performance and efficiency.
 
 
