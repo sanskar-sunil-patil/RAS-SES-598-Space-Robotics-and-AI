@@ -64,23 +64,12 @@ ros2 launch cart_pole_optimal_control cart_pole_rviz.launch.py will run the Gaze
 
 
 5. Controller Tuning =
-   
-LQR Controller Description:
-The LQR controller is defined in lqr_controller.py, with configurable Q and R matrices.
-Default Q Matrix =
-Q = np.diag([1.0, 1.0, 10.0, 10.0])  # [x, x_dot, theta, theta_dot]
 
-Default R Matrix =
-R = np.array([[0.1]])  # Control effort cost
-Parameter Tuning:
+Final Values of Q & R =
 
-The tuning process involves adjusting the Q matrix to penalize different states (cart position, velocity, pole angle, angular velocity) and adjusting the R matrix to control the control effort (force applied to the cart).
-Objective: Minimize the pole angle deviation while ensuring the cart remains within the limits and minimizing control effort.
-Tuning Steps:
+self.Q = np.diag([1.0, 1.0, 50.0, 50.0])
 
-Start with default Q and R: Observe the system’s behavior.
-Adjust Q: Increase or decrease the values based on the state you want to prioritize (e.g., reduce the penalty on x if the cart position is less critical than stabilizing the pole).
-Adjust R: Increase R if the control effort is too aggressive (leading to high forces) or too low if the system is not responsive enough.
+self.R = np.array([[0.01]])
 
 
 
