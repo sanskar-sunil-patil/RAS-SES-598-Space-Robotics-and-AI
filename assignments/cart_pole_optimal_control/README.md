@@ -252,17 +252,165 @@ plt.show()
 
 2] Control error Distribution =
 
+import matplotlib.pyplot as plt
+
+import numpy as np
+
+# Sample data (Replace with actual values)
+
+num_points = 100
+
+control_forces = np.linspace(-5, 5, num_points)  # Simulated control force values
+
+control_errors = np.random.normal(0, 1, num_points) * control_forces * 0.1  # Simulated control errors
+
+# Compute statistics
+
+mean_error = np.mean(control_errors)
+
+std_error = np.std(control_errors)
+
+# Create histogram
+
+plt.figure(figsize=(8, 6))
+
+n, bins, patches = plt.hist(control_errors, bins=25, density=True, alpha=0.9, edgecolor='white', color="darkviolet")
+
+# Apply colormap to bins
+
+for patch, value in zip(patches, bins):
+
+patch.set_facecolor(plt.cm.plasma((value - min(bins)) / (max(bins) - min(bins))))
+
+# Mean & Standard Deviation Lines
+
+plt.axvline(mean_error, color='yellow', linestyle='dashed', linewidth=2, label=f'Mean: {mean_error:.2f}')
+
+plt.axvline(mean_error + std_error, color='cyan', linestyle='dotted', linewidth=2, label=f'+1σ: {mean_error + std_error:.2f}')
+
+plt.axvline(mean_error - std_error, color='cyan', linestyle='dotted', linewidth=2, label=f'-1σ: {mean_error - std_error:.2f}')
+
+# Labels & Title
+
+plt.xlabel('Control Error', fontsize=12, color='white')
+
+plt.ylabel('Density', fontsize=12, color='white')
+
+plt.title('Control Error Distribution', fontsize=14, fontweight='bold', color='white')
+
+# Custom grid
+
+plt.grid(True, linestyle='--', alpha=0.4, color="gray")
+
+plt.legend()
+
+# Dark theme (optional)
+
+plt.style.use("dark_background")
+
+
+# Show plot
+
+plt.show()
+
 
 ![2](https://github.com/user-attachments/assets/5cb5f608-383a-4074-86a1-4e35af7bc7e6)
 
 
+
 3] Impact of R on Pendulum Stability = 
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data (Replace with actual simulation data if available)
+
+r_values = np.logspace(-2, 2, 10)  # Log-spaced values of r from 0.01 to 100
+
+max_pendulum_angles = np.exp(-0.5 * np.log(r_values)) * 0.5  # Simulated trend
+
+plt.figure(figsize=(8, 6))
+
+plt.plot(r_values, max_pendulum_angles, marker='o', linestyle='-', color='b', label='Max Pendulum Angle')
+
+plt.xscale('log')  # Log scale for r
+
+plt.xlabel('Control Effort Penalty (r)')
+
+plt.ylabel('Maximum Pendulum Angle (rad)')
+
+plt.title('Impact of r on Pendulum Stability')
+
+plt.legend()
+
+plt.grid(True, linestyle='--', alpha=0.6)
+
+plt.show()
 
 
 ![3](https://github.com/user-attachments/assets/c1aa036a-574e-4663-bebf-00827c2171b8)
 
 
+
 4] Pendulum Dynamics =
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+# Simulated Data for demonstration (Replace with actual values)
+
+time_stamps = np.linspace(0, 50, 1000)  # Example: Replace with self.time_stamps
+
+pole_angles = np.random.normal(0, 0.005, len(time_stamps))  # Replace with self.pole_angles
+
+angular_velocities = np.random.normal(0, 0.1, len(time_stamps))  # Replace with actual angular velocities
+
+# Ensure valid data lengths
+
+if len(pole_angles) != len(angular_velocities) or len(pole_angles) != len(time_stamps):
+
+    raise ValueError("Data arrays must have the same length.")
+
+
+# Set black background
+
+plt.style.use("dark_background")
+
+plt.figure(figsize=(8, 6))
+
+# Scatter plot with dark pink and dark violet colors
+
+sc = plt.scatter(
+
+    pole_angles, angular_velocities, c=time_stamps, cmap="plasma", 
+    
+    alpha=0.9, edgecolors="white", s=20
+)
+
+
+cbar = plt.colorbar(sc)
+
+cbar.set_label("Time (s)", fontsize=12, color="white")
+
+# Labels and Titles with white text for visibility
+
+plt.xlabel("Pendulum Angle (rad)", fontsize=12, color="white")
+
+plt.ylabel("Angular Velocity (rad/s)", fontsize=12, color="white")
+
+plt.title("Phase Portrait: Pendulum Dynamics", fontsize=14, color="white")
+
+# Grid with subtle gray lines
+
+plt.grid(True, linestyle="--", alpha=0.3, color="gray")
+
+
+# Show plot
+
+plt.show()
+
+
 
 ![4](https://github.com/user-attachments/assets/fa68e89c-f198-444a-aa52-9459034849b2)
 
