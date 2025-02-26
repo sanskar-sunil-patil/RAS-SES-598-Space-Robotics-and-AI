@@ -256,7 +256,7 @@ import matplotlib.pyplot as plt
 
 import numpy as np
 
-# Sample data (Replace with actual values)
+# Sample data 
 
 num_points = 100
 
@@ -304,7 +304,7 @@ plt.grid(True, linestyle='--', alpha=0.4, color="gray")
 
 plt.legend()
 
-# Dark theme (optional)
+# Dark theme 
 
 plt.style.use("dark_background")
 
@@ -323,7 +323,7 @@ plt.show()
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Sample data (Replace with actual simulation data if available)
+# Sample data 
 
 r_values = np.logspace(-2, 2, 10)  # Log-spaced values of r from 0.01 to 100
 
@@ -358,7 +358,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-# Simulated Data for demonstration (Replace with actual values)
+# Simulated Data for demonstration 
 
 time_stamps = np.linspace(0, 50, 1000)  # Example: Replace with self.time_stamps
 
