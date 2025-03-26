@@ -101,4 +101,71 @@ cd ~/ros2_ws
 rosdep install --from-paths src --ignore-src -r -y
 
 
-### 2. Install Dependencies =
+### 3. Build the Package =
+
+colcon build --packages-select terrain_mapping_drone_control
+
+
+### 4. Source the Workspace =
+
+source ~/ros2_ws/install/setup.bash
+
+
+## 5.3 Running the System =
+
+### 1. Launch the Full System =
+
+ros2 launch terrain_mapping_drone_control terrain_mapping.launch.py
+
+### Monitor Status =
+
+ros2 topic echo /terrain_mapping_controller/status
+
+### View ORBSLAM3 Mapping =
+
+ros2 run rqt_image_view rqt_image_view
+
+
+# 6. Results & Analysis =
+
+## 6.1 Data Outputs =
+
+The system produces the following outputs:
+
+* ORBSLAM3-generated trajectory and 3D map.
+
+* Flight telemetry logs (velocity, altitude, GPS coordinates).
+
+* Captured images for offline processing.
+
+* Generated point cloud of the surveyed terrain.
+
+
+  ## 6.2 Performance Evaluation =
+
+* Accuracy of ORBSLAM3 mapping was validated against known ground truth.
+
+* Flight stability was analyzed in simulation.
+
+* Coverage efficiency was evaluated based on strip spacing and overlap.
+
+
+# 7. Challenges & Solutions =
+
+
+
+
+# 8. Future Improvements =
+
+* Real-world flight testing with a physical UAV.
+
+* Enhanced obstacle avoidance using LiDAR integration.
+
+* Multi-drone collaboration for faster area coverage.
+
+* AI-based adaptive flight patterns for dynamic terrain mapping.
+
+
+# 9. Conclusion =
+
+This project successfully implemented an autonomous drone-based terrain mapping system using ROS2, PX4 SITL, and ORBSLAM3. The system provides accurate 3D mapping, efficient flight control, and robust data acquisition. Future enhancements can improve scalability and real-world applicability.
