@@ -90,4 +90,15 @@ The drone follows a structured lawnmower pattern over the target area. Key param
 
 
 cd ~/ros2_ws/src
+
 git clone <repository_url>
+
+
+### 2. Install Dependencies =
+
+cd ~/ros2_ws
+
+rosdep install --from-paths src --ignore-src -r -y
+
+
+### 2. Install Dependencies =
