@@ -152,8 +152,11 @@ The system produces the following outputs:
 
 # 7. Challenges & Solutions =
 
+1. ORBSLAM3 initialization issues ensures correct camera calibration.
+   
+2. Drone stability during turns fine-tuned PID control parameters.
 
-
+3. Processing delays in large maps uses optimized ORBSLAM3 settings
 
 # 8. Future Improvements =
 
