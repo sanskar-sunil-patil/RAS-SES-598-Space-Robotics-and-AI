@@ -53,8 +53,41 @@ The system consists of the following components:
 
 
 
-## 4. Methodology =
+# 4. Methodology =
 
-# 4.1 Flight Pattern =
+## 4.1 Flight Pattern =
 
 The drone follows a structured lawnmower pattern over the target area. Key parameters include:
+
+* Mapping Height: Configurable flight altitude.
+
+* Survey Speed: Drone velocity during mapping.
+
+* Area Dimensions: Defined by width and length.
+
+* Strip Spacing: Distance between adjacent survey lines.
+
+
+  ## 4.2 SLAM Integration =
+  
+* ORBSLAM3 processes camera images for real-time localization and map generation.
+
+* The system records trajectory data and generates a 3D point cloud.
+
+
+  # 5. Implementation =
+
+  ## 5.1 Prerequisites =
+
+* Software: ROS2 Humble, PX4 SITL, ORBSLAM3, OpenCV, Python 3.8+
+
+* Hardware: Simulated or real UAV with a compatible camera
+
+
+## 5.2 Installation Steps =
+
+### 1. Clone the Repository =
+
+
+cd ~/ros2_ws/src
+git clone <repository_url>
